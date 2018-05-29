@@ -1,0 +1,22 @@
+version: '2.2'
+services:
+    maven:
+        build: /tmp/GKQuizAPP/Maven
+        volumes: 
+          - /tmp/GKQuixAPP:/user/src/GKQuiz
+          - /maven-repo:/root/.m2
+        container_name: myMavenContainer
+    web:
+        image: tomcat:8.0
+        volumes: 
+          - /tmp/GKQuizAPP/GKQuiz/target:/usr/local/tomcat/webapps
+        ports:
+           - "8080:8080"
+    db:
+      image: mysql
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: mysqlroot
+        MYSQL_DATABASE: gkquiz
+        MYSQL_USER: gkquiz
+        MYSQL_PASSWORD: password1
